@@ -38,9 +38,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    #Conectando las aplicaciones
+    #Conectando las aplicaciones (POR ORDEN ALFABÉTICO)
+    'blog.apps.BlogConfig',
+    'ckeditor',
+    'contact.apps.ContactConfig',
     'core.apps.CoreConfig',
-    'services.apps.ServicesConfig'
+    'pages.apps.PagesConfig',
+    'services.apps.ServicesConfig',
+    'social.apps.SocialConfig',
 ]
 
 MIDDLEWARE = [
@@ -64,8 +69,9 @@ TEMPLATES = [
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
+                'django.contrib.auth.context_processors.auth', #Maneja la autenticación e inyecta datos de la sesión activa dentro de los templates 
                 'django.contrib.messages.context_processors.messages',
+                'social.processors.ctx_dict'
             ],
         },
     },
@@ -130,3 +136,29 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #Media files
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+#Ckeditor
+#CKEDITOR_CONFIGS = {
+    #'default': {
+        #'toolbar':None #No se agrega ninguna configuracion, por lo tanto, se mostrarán todas las herramientas (Basic - editor básico)
+    #}
+#}
+
+# Ckeditor
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'Custom',
+        'toolbar_Custom': [
+            ['Bold', 'Italic', 'Underline'],
+            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 
+             'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+            ['Link', 'Unlink']
+        ]
+    }
+}
+
+#Email config 
+EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
+EMAIL_HOST_USER = '6547c08c57108c'
+EMAIL_HOST_PASSWORD = '0066ca24d60367'
+EMAIL_PORT = '2525'
